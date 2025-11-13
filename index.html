@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Sofía!</title>
+    
+    <!-- Carga de Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carga de Tone.js para la música --><script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    
+    <!-- Carga de la fuente estilo Cartoon --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: transparent; 
+            overflow-x: hidden;
+            
+            /* URL de FONDO (IA - Funcional) */
+            background-image: url('https://image.pollinations.ai/prompt/Spongebob%20Squarepants%20and%20Patrick%20Star%20happily%20celebrating%20a%20birthday%20inside%20the%20Krusty%20Krab%20restaurant,%20Bikini%20Bottom%20style,%20party%20decorations,%20balloons,%20confetti,%20bright%20and%20joyful%20atmosphere,%20wide%20shot,%20cartoon%20style,%20high%20resolution?width=1200&height=800&seed=9');
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; 
+            position: relative; 
+        }
+
+        /* Capa oscura para que el texto resalte */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: -1; 
+        }
+
+        /* Título estilo cartoon */
+        .font-cartoon {
+            font-family: 'Luckiest Guy', cursive;
+            text-shadow: 4px 4px 0px #F97316, -2px -2px 0px #FDE047;
+            color: #DB2777; 
+            letter-spacing: 0.02em;
+        }
+
+        /* Sombra de texto para los botones */
+        .btn-text-shadow {
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Contenedor de animaciones de fondo */
+        .background-animations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; 
+        }
+
+        /* Burbujas */
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            animation: rise 10s infinite ease-in;
+            bottom: -150px;
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.7);
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Medusas */
+        .jellyfish {
+            position: absolute;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(20px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
+        /* Estilos para los Modales (Pop-ups) */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- 1. Fondo Animado --><div class="background-animations">
+        
+        <!-- Contenedor de burbujas (se generan con JS) --><div id="bubbles-container"></div>
+        
+        <!-- Medusas de colores (SVG) --><div class="jellyfish" style="left: 10%; top: 20%; animation-duration: 14s;">
+            <svg width="70" height="90" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 30 C 10 10, 50 10, 50 30 Q 50 50, 30 50 Q 10 50, 10 30 Z" fill="#FFC0CB" stroke="#FF69B4" stroke-width="2"/>
+                <line x1="15" y1="50" x2="10" y2="70" stroke="#FF69B4" stroke-width="4" />
+                <line x1="25" y1="50" x2="25" y2="75" stroke="#FF69B4" stroke-width="4" />
+                <line x1="35" y1="50" x2="35" y2="75" stroke="#FF69B4" stroke-width="4" />
+                <line x1="45" y1="50" x2="50" y2="70" stroke="#FF69B4" stroke-width="4" />
+            </svg>
+        </div>
+        <div class="jellyfish" style="left: 70%; top: 40%; animation-duration: 18s; animation-delay: -5s;">
+            <svg width="90" height="110" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 40 C 10 10, 70 10, 70 40 Q 70 60, 40 60 Q 10 60, 10 40 Z" fill="#90EE90" stroke="#3CB371" stroke-width="2"/>
+                <line x1="20" y1="60" x2="15" y2="90" stroke="#3CB371" stroke-width="5" />
+                <line x1="30" y1="60" x2="30" y2="95" stroke="#3CB371" stroke-width="5" />
+                <line x1="40" y1="60" x2="40" y2="95" stroke="#3CB371" stroke-width="5" />
+                <line x1="50" y1="60" x2="50" y2="95" stroke="#3CB371" stroke-width="5" />
+                <line x1="60" y1="60" x2="65" y2="90" stroke="#3CB371" stroke-width="5" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <!-- CAMBIO: Se quita 'h-screen' y se usa 'min-h-screen' con padding 'py-16' para permitir el scroll y mejor centrado -->
+    <main class="relative z-10 flex flex-col items-center p-6 py-16 text-center text-white">
+        
+        <!-- CAMBIO: Imagen principal más pequeña en móviles ('w-60') para mejor adaptación -->
+        <div class="w-60 sm:w-72 md:w-80 mb-6">
+             <img src="https://image.pollinations.ai/prompt/Spongebob%20Squarepants%20holding%20a%20large,%20colorful%20birthday%20cake%20with%20lit%20candles,%20confetti%20falling,%20underwater%20Bikini%20Bottom%20background,%20bright%20and%20festive%20colors,%20cartoon%20style,%20high%20resolution?width=800&height=800&seed=2" 
+                  alt="Bob Esponja con pastel de cumpleaños" 
+                  class="w-full object-contain drop-shadow-xl rounded-full">
+        </div>
+
+        <!-- CAMBIO: Tamaños de fuente ajustados ('text-4xl md:text-6xl') para mejor legibilidad en móviles -->
+        <h1 class="font-cartoon text-4xl md:text-6xl leading-tight mb-8">
+            ¡Feliz Cumpleaños Sofía,<br>la mejor doctora!
+        </h1>
+
+        <!-- Botones -->
+        <!-- CAMBIO: Se añade 'pb-16' para dar espacio al final si se hace scroll -->
+        <div class="flex flex-col md:flex-row gap-6 mt-8 pb-16">
+            
+            <button id="btn-msg" class="modal-open-btn font-cartoon btn-text-shadow px-10 py-5 bg-pink-500 text-white text-xl rounded-full shadow-2xl transform hover:scale-110 hover:rotate-3 transition-all duration-300 border-4 border-white">
+                🎁 Mensaje sorpresa
+            </button>
+            
+            <button id="btn-ded" class="modal-open-btn font-cartoon btn-text-shadow px-10 py-5 bg-cyan-400 text-white text-xl rounded-full shadow-2xl transform hover:scale-110 hover:-rotate-3 transition-all duration-300 border-4 border-white">
+                💌 Dedicatoria especial
+            </button>
+            
+            <button id="btn-mom" class="modal-open-btn font-cartoon btn-text-shadow px-10 py-5 bg-yellow-400 text-white text-xl rounded-full shadow-2xl transform hover:scale-110 hover:rotate-3 transition-all duration-300 border-4 border-white">
+                📸 Momentos felices
+            </button>
+        </div>
+    </main>
+
+    <!-- 3. Modales (Pop-ups) -->
+    
+    <!-- Modal 1: Mensaje Sorpresa (Solo texto) -->
+    <div id="modal-msg" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-close-btn absolute inset-0 bg-black bg-opacity-70"></div>
+        <!-- CAMBIO: Se añade 'max-h-[80vh]' y 'overflow-y-auto' para hacer el modal scrollable si el texto es muy largo -->
+        <div class="relative bg-white w-full max-w-lg p-8 rounded-3xl shadow-2xl text-center border-4 border-pink-500 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-4xl font-cartoon text-pink-600 mb-6">¡Sorpresa!</h2>
+            
+            <!-- CAMBIO: Texto actualizado, más pequeño ('text-base') y alineado a la izquierda ('text-left') para legibilidad -->
+            <p class="text-base text-left text-gray-800 leading-relaxed">
+                Hoy no solo se celebra un año más de tu vida, Sofía, sino también todo lo que eres y lo que representas. Eres una persona admirable, de esas que dejan huella con su dedicación, su bondad y su pasión por ayudar a los demás. Ser doctora no es solo una profesión, es un acto de amor constante hacia la vida, y tú lo reflejas con cada palabra, cada sonrisa y cada gesto de empatía.
+                <br><br>
+                Tu fortaleza, tu entrega y tu corazón inspiran a quienes tienen la suerte de conocerte. Has demostrado que el verdadero éxito no está solo en los logros profesionales, sino en la forma en que tocas las vidas de otros con humildad y compasión.
+                <br><br>
+                Hoy quiero desearte un cumpleaños lleno de luz, alegría y momentos que te recuerden lo valiosa que eres. Que cada día traiga nuevas razones para sonreír, y que nunca te falte la energía para seguir persiguiendo tus sueños, ni el cariño de quienes te admiramos.
+                <br><br>
+                Gracias por ser esa persona auténtica, generosa y brillante que ilumina el camino de muchos. Ojalá la vida te devuelva multiplicado todo el bien que das al mundo.
+                <br><br>
+                💖 Feliz cumpleaños, Sofía. Que la felicidad y la serenidad te acompañen siempre. 🌷
+            </p>
+            
+            <button class="modal-close-btn mt-8 px-8 py-3 bg-pink-500 text-white rounded-full font-bold text-lg hover:bg-pink-600 transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Dedicatoria Especial (Imagen + Texto) -->
+    <div id="modal-ded" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-close-btn absolute inset-0 bg-black bg-opacity-70"></div>
+        <!-- CAMBIO: Se añade 'max-h-[80vh]' y 'overflow-y-auto' para adaptabilidad -->
+        <div class="relative bg-white w-full max-w-lg p-8 rounded-3xl shadow-2xl text-center border-4 border-cyan-400 max-h-[80vh] overflow-y-auto">
+            <!-- Imagen de IA (Funcional) --><img src="https://image.pollinations.ai/prompt/Spongebob%20and%20Patrick%20Star%20happily%20celebrating%20a%20birthday%20underwater%20in%20Bikini%20Bottom,%20confetti%20everywhere,%20party%20hats,%20balloons,%20bright%20and%20joyful%20atmosphere,%20cartoon%20style,%20high%20resolution.%20Add%20text:%20%22%C2%A1DISFRUTA%20TU%20D%C3%8DA%20AL%20MAXIMO,%20DOCTORA%20BRILLANTE%20DEL%20FONDO%20DE%20BIKINI!%22%20on%20a%20colorful%20sign?width=800&height=800&seed=3" 
+                 alt="Bob Esponja y Patricio celebrando" 
+                 class="w-full h-48 object-cover rounded-lg mb-6 shadow-lg">
+            
+            <p class="text-2xl text-gray-800 font-cartoon mt-6 leading-relaxed">
+                ¡Disfruta tu día al máximo, doctora brillante del Fondo de Bikini!
+            </p>
+            <button class="modal-close-btn mt-8 px-8 py-3 bg-cyan-400 text-white rounded-full font-bold text-lg hover:bg-cyan-500 transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Momentos Felices (Carrusel) -->
+    <div id="modal-mom" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-close-btn absolute inset-0 bg-black bg-opacity-70"></div>
+        <!-- CAMBIO: Se añade 'max-h-[80vh]' y 'overflow-y-auto' para adaptabilidad -->
+        <div class="relative bg-white w-full max-w-lg p-8 rounded-3xl shadow-2xl text-center border-4 border-yellow-400 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-4xl font-cartoon text-yellow-600 mb-6">Momentos Felices</h2>
+            
+            <!-- Contenedor del Carrusel --><div class="relative h-64 overflow-hidden rounded-xl bg-gradient-to-br from-yellow-100 to-white flex items-center justify-center p-4 border-2 border-yellow-300">
+                
+                <!-- Slide 1 --><div class="carousel-slide w-full h-full flex flex-col items-center justify-center p-4">
+                    <!-- RUTA LOCAL: Cambia 'slide1.png' por el nombre de tu foto --><img src="images/slide1.png" 
+                         alt="¡Estoy listo para celebrar!" 
+                         class="h-32 object-contain">
+                    <p class="text-3xl font-cartoon text-blue-600 mt-4">¡Estoy listo para celebrar!</p>
+                </div>
+                
+                <!-- Slide 2 --><div class="carousel-slide w-full h-full flex flex-col items-center justify-center p-4 hidden">
+                     <!-- RUTA LOCAL: Cambia 'slide2.png' por el nombre de tu foto --><img src="images/slide2.png" 
+                         alt="La mejor doctora" 
+                         class="h-32 object-contain">
+                    <p class="text-3xl font-cartoon text-pink-500 mt-4">La mejor doctora bajo el mar 🌊</p>
+                </div>
+                
+                <!-- Slide 3 --><div class="carousel-slide w-full h-full flex flex-col items-center justify-center p-4 hidden">
+                    <!-- RUTA LOCAL: Cambia 'slide3.png' por el nombre de tu foto --><img src="images/slide3.png" 
+                         alt="Tu sonrisa ilumina" 
+                         class="h-32 object-contain">
+                    <p class="text-3xl font-cartoon text-cyan-500 mt-4">Sofía, iluminas el Fondo de Bikini con tu sonrisa 💖</p>
+                </div>
+                
+                <!-- Slide 4 --><div class="carousel-slide w-full h-full flex flex-col items-center justify-center p-4 hidden">
+                    <!-- RUTA LOCAL: Cambia 'slide4.png' por el nombre de tu foto --><img src="images/slide4.png" 
+                         alt="Estrella de mar" 
+                         class="h-32 object-contain">
+                    <p class="text-3xl font-cartoon text-green-500 mt-4">¡Que tu día sea tan brillante como una estrella de mar!</p>
+                </div>
+            </div>
+
+            <!-- Controles del Carrusel --><div class="flex justify-between mt-6">
+                <button id="carousel-prev" class="px-6 py-2 bg-yellow-300 text-gray-800 rounded-full font-bold text-lg hover:bg-yellow-400 transition-colors">&larr; Anterior</button>
+                <button id="carousel-next" class="px-6 py-2 bg-yellow-300 text-gray-800 rounded-full font-bold text-lg hover:bg-yellow-400 transition-colors">Siguiente &rarr;</button>
+            </div>
+
+            <button class="modal-close-btn mt-8 px-8 py-3 bg-yellow-400 text-white rounded-full font-bold text-lg hover:bg-yellow-500 transition-colors">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Lógica de Burbujas ---
+        const bubblesContainer = document.getElementById('bubbles-container');
+        const bubbleCount = 40; 
+
+        for (let i = 0; i < bubbleCount; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 50 + 20; 
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDuration = `${Math.random() * 7 + 8}s`; 
+            bubble.style.animationDelay = `${Math.random() * 12}s`; 
+            
+            bubblesContainer.appendChild(bubble);
+        }
+
+        // --- Lógica de Modales ---
+        const openButtons = document.querySelectorAll('.modal-open-btn');
+        const closeButtons = document.querySelectorAll('.modal-close-btn');
+        let musicStarted = false;
+
+        const modalMap = {
+            'btn-msg': 'modal-msg',
+            'btn-ded': 'modal-ded',
+            'btn-mom': 'modal-mom'
+        };
+
+        openButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (!musicStarted) {
+                    startMusic();
+                    musicStarted = true;
+                }
+                
+                const modalId = modalMap[button.id];
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('open');
+                }
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('open');
+                }
+            });
+        });
+
+        // --- Lógica del Carrusel ---
+        const prevButton = document.getElementById('carousel-prev');
+        const nextButton = document.getElementById('carousel-next');
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.add('hidden');
+            });
+            slides[index].classList.remove('hidden');
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+            showSlide(currentSlide);
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+            showSlide(currentSlide);
+        });
+
+        showSlide(currentSlide);
+
+        // --- Lógica de Música (Tone.js) - Tema de Feliz Cumpleaños ---
+        function startMusic() {
+            Tone.start();
+
+            const synth = new Tone.PolySynth(Tone.FMSynth, {
+                harmonicity: 3.01,
+                modulationIndex: 14,
+                envelope: { attack: 0.01, decay: 0.1, sustain: 0.2, release: 0.5 },
+                modulationEnvelope: { attack: 0.01, decay: 0.2, sustain: 0, release: 0.5 }
+            }).toDestination();
+            
+            const reverb = new Tone.Reverb(1.5).toDestination();
+            synth.connect(reverb);
+
+            const happyBirthdayMelody = [
+                { note: "C4", duration: "8n", time: "0:0" },
+                { note: "C4", duration: "8n", time: "0:0:2" },
+                { note: "D4", duration: "4n", time: "0:1" },
+                { note: "C4", duration: "4n", time: "0:2" },
+                { note: "F4", duration: "4n", time: "0:3" },
+                { note: "E4", duration: "2n", time: "1:0" },
+
+                { note: "C4", duration: "8n", time: "1:2" },
+                { note: "C4", duration: "8n", time: "1:2:2" },
+                { note: "D4", duration: "4n", time: "1:3" },
+                { note: "C4", duration: "4n", time: "2:0" },
+                { note: "G4", duration: "4n", time: "2:1" },
+                { note: "F4", duration: "2n", time: "2:2" },
+
+                { note: "C4", duration: "8n", time: "3:0" },
+                { note: "C4", duration: "8n", time: "3:0:2" },
+                { note: "C5", duration: "4n", time: "3:1" },
+                { note: "A4", duration: "4n", time: "3:2" },
+                { note: "F4", duration: "4n", time: "3:3" },
+                { note: "E4", duration: "4n", time: "4:0" },
+                { note: "D4", duration: "2n", time: "4:1" },
+                
+                { note: "Bb4", duration: "8n", time: "4:3" },
+                { note: "Bb4", duration: "8n", time: "4:3:2" },
+                { note: "A4", duration: "4n", time: "5:0" },
+                { note: "F4", duration: "4n", time: "5:1" },
+                { note: "G4", duration: "4n", time: "5:2" },
+                { note: "F4", duration: "2n", time: "5:3" }
+            ];
+
+            const melodyPart = new Tone.Part((time, noteDef) => {
+                synth.triggerAttackRelease(noteDef.note, noteDef.duration, time);
+            }, happyBirthdayMelody);
+
+            melodyPart.loop = true;
+            melodyPart.loopEnd = "6:1";
+            
+            Tone.Transport.bpm.value = 130;
+            Tone.Transport.start();
+            melodyPart.start(0);
+        }
+
+    </script>
+</body>
+</html>
